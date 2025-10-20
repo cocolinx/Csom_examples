@@ -1,6 +1,6 @@
-# Example: Hello World
+# Example Codes
 
-This is a simple Hello World Example for CocoLinx device.
+These are simple Example Codes for CocoLinx device.
 
 -----
 ### Setup
