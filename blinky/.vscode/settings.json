@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "nrf_modem.h": "c",
+        "kernel.h": "c"
+    }
+}

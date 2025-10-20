@@ -1,0 +1,8 @@
+board:
+  name: cocolinx_dev9151
+  full_name: nRF9160 dev9151
+  vendor: cocolinx
+  socs:
+  - name: nrf9151
+    variants:
+    - name: 'ns'
