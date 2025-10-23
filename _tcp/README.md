@@ -6,8 +6,6 @@ Test for connecting to echo server.
 
 You receive the exact same string you sent back.
 
-Use a separate thread for receiving data in actual usage.
-
 -----
 ### Setup
 For the most up to date instructions, please see:

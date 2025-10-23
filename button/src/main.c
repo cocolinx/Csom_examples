@@ -41,5 +41,7 @@ int main(void)
     gpio_add_callback(btn, &btn_cb);
     gpio_pin_interrupt_configure(btn, PIN_BUTTON1, GPIO_INT_EDGE_BOTH); // rising, falling
 
+    LOG_INF("press button to test!");
+
     return 0;
 }

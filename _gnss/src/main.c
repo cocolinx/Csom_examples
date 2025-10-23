@@ -96,7 +96,6 @@ int main(void)
 
     int err;
 
-    // lte_lc_connect();
     lte_lc_func_mode_set(LTE_LC_FUNC_MODE_ACTIVATE_GNSS);
 
     err = nrf_modem_gnss_event_handler_set(gnss_event_handler);

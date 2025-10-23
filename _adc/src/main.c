@@ -21,9 +21,9 @@ int main(void)
 
     int mv;
 
-    // adc init
+    /* adc init */
     channel_cfg.channel_id = 1;
-    channel_cfg.gain = ADC_GAIN_1_5; // 3.0V
+    channel_cfg.gain = ADC_GAIN_1_5; /* 3.0v */
     channel_cfg.reference = ADC_REF_INTERNAL;
     channel_cfg.acquisition_time = ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40);
     channel_cfg.differential = false;
@@ -43,7 +43,7 @@ int main(void)
     while(true) {
         adc_read(adc_dev, &adc_sequence);
         mv = adc_buffer;
-        mv = (mv * 3000) / 16380; // mv: 0 ~ 3000
+        mv = (mv * 3000) / 16380; /* mv: 0~3000 */
         LOG_INF("adc value: %d", mv);
         k_msleep(1000);
     }

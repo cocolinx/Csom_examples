@@ -26,8 +26,8 @@ int main(void)
 
     sa.sin_family = AF_INET;
     sa.sin_port = htons(7777);
-    zsock_inet_pton(AF_INET, "43.200.166.133", &sa.sin_addr);
-    
+    zsock_inet_pton(AF_INET, "43.200.166.133", &sa.sin_addr); /* echo server IP address */
+     
 	ret = zsock_connect(socknum, (struct sockaddr *)&sa, sizeof(struct sockaddr_in));
 	if(ret < 0) {
 		LOG_ERR("connect failed:%d", ret);
@@ -46,5 +46,11 @@ int main(void)
 
         k_msleep(5000);
     }
+
+    zsock_close(socknum);
+    lte_lc_power_off();
+    LOG_INF("udp close...");
+    LOG_INF("main close...");
+
     return 0;
 }

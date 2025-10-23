@@ -26,9 +26,9 @@ int main(void)
     if(!device_is_ready(leds)) return 0;
 
     // low(on), high(off)
-    gpio_pin_configure(leds, PIN_LED_0, GPIO_OUTPUT_HIGH | GPIO_PULL_UP);
-    gpio_pin_configure(leds, PIN_LED_1, GPIO_OUTPUT_HIGH | GPIO_PULL_UP);
-    gpio_pin_configure(leds, PIN_LED_2, GPIO_OUTPUT_HIGH | GPIO_PULL_UP);
+    gpio_pin_configure(leds, PIN_LED_0, GPIO_OUTPUT_HIGH);
+    gpio_pin_configure(leds, PIN_LED_1, GPIO_OUTPUT_HIGH);
+    gpio_pin_configure(leds, PIN_LED_2, GPIO_OUTPUT_HIGH);
     
     while(iter--){
         ret = gpio_pin_set_raw(leds, PIN_LED_0, 0);
@@ -53,5 +53,6 @@ int main(void)
         k_msleep(SLEEP_TIME_MS);
     }
 
+    LOG_INF("main close...");
     return 0;
 }

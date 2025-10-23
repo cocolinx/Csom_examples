@@ -19,8 +19,9 @@ LOG_MODULE_REGISTER(main_udp, CONFIG_LOG_DEFAULT_LEVEL);
 static K_SEM_DEFINE(udpsem_start, 0, 1);
 
 static const struct device *leds = DEVICE_DT_GET(DT_NODELABEL(gpio0));
-static int socknum;
+static int socknum = NULL;
 static uint8_t rxpktbuf[64];
+static bool isconnected = false;
 
 int main(void)
 {
@@ -33,9 +34,9 @@ int main(void)
     uint8_t init_buf[1];
     init_buf[0] = 0;
 
-    gpio_pin_configure(leds, PIN_LED_0, GPIO_OUTPUT_HIGH | GPIO_PULL_UP);
-    gpio_pin_configure(leds, PIN_LED_1, GPIO_OUTPUT_HIGH | GPIO_PULL_UP);
-    gpio_pin_configure(leds, PIN_LED_2, GPIO_OUTPUT_HIGH | GPIO_PULL_UP);
+    gpio_pin_configure(leds, PIN_LED_0, GPIO_OUTPUT_HIGH);
+    gpio_pin_configure(leds, PIN_LED_1, GPIO_OUTPUT_HIGH);
+    gpio_pin_configure(leds, PIN_LED_2, GPIO_OUTPUT_HIGH);
 
     lte_lc_connect();
 
@@ -50,12 +51,22 @@ int main(void)
 		LOG_ERR("connect failed:%d", ret);
 	}
     LOG_INF("udp connected...");
+    isconnected = true;
 
     /* send one UDP packet to give the IP address and port to server */
     zsock_send(socknum, init_buf, sizeof(init_buf), 0);
 
     k_sem_give(&udpsem_start);
 
+    k_msleep(60000); /* 60 seconds */
+
+    zsock_close(socknum);
+    lte_lc_power_off();
+    socknum = NULL;
+    isconnected = false;
+
+    LOG_INF("udp disconnected...");
+    LOG_INF("main close...");
 
     return 0;
 }
@@ -71,7 +82,7 @@ static void udp_thread(void)
     k_sem_take(&udpsem_start, K_FOREVER);
     LOG_INF("udp poll start...");
 
-    while(true) {
+    while(socknum != NULL && isconnected == true) {
         ret = zsock_poll(fds, 1, 1000);
         if (ret < 0) {
             LOG_ERR("poll() failed: (%d)", -errno);
@@ -106,6 +117,8 @@ static void udp_thread(void)
             }
         } 
     }
+    LOG_INF("udp thread close...");
+    return;
 }
 
 K_THREAD_DEFINE(udp_thread_id, 2048, udp_thread, NULL, NULL, NULL, 1, 0, 0);
