@@ -85,7 +85,7 @@ int main(void)
     sa.sin_addr = ((struct sockaddr_in *)res->ai_addr)->sin_addr;
     zsock_freeaddrinfo(res);
 
-    // client init
+    /* client init */
     memcpy(&broker, &sa, sizeof(sa));
 
     mqtt_client_init(&client);
@@ -104,7 +104,7 @@ int main(void)
     client.rx_buf_size      = sizeof(rx_buf);
     client.tx_buf_size      = sizeof(tx_buf);
 
-    // mqtt connection
+    /* mqtt connection */
     LOG_INF("mqtt connecting...");
     ret = mqtt_connect(&client);
     if (ret) { LOG_ERR("mqtt_connect rc=%d", ret); return 0; }
@@ -125,7 +125,7 @@ int main(void)
         }
     }
 
-    // mqtt subscribe
+    /* mqtt subscribe */
     topic.topic.utf8 = SUB_TOPIC;
     topic.topic.size = strlen(topic.topic.utf8);
     topic.qos = MQTT_QOS_0_AT_MOST_ONCE; 
@@ -135,7 +135,7 @@ int main(void)
 
     ret = mqtt_subscribe(&client, &sub_list);
 
-    // mqtt publish
+    /* mqtt publish */
     const char *msg = "hello cocolinx";
 
     pub_param.message.topic.topic.utf8 = (uint8_t *)PUB_TOPIC;
