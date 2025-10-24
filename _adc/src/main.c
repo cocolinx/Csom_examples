@@ -43,7 +43,7 @@ int main(void)
     while(true) {
         adc_read(adc_dev, &adc_sequence);
         mv = adc_buffer;
-        mv = (mv * 3000) / 16380; /* mv: 0~3000 */
+        mv = (mv * 3000) / 16383; /* mv: 0~3000 */
         LOG_INF("adc value: %d", mv);
         k_msleep(1000);
     }
