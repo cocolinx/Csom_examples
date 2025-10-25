@@ -32,10 +32,10 @@ int main(void)
     
     while(iter--){
         ret = gpio_pin_set_raw(leds, PIN_LED_0, 0);
-        LOG_INF("turn on: %d", PIN_LED_0);
+        LOG_INF("turn on: %d, %d", PIN_LED_0);
         k_msleep(SLEEP_TIME_MS);
         ret = gpio_pin_set_raw(leds, PIN_LED_0, 1);
-        LOG_INF("turn off: %d", PIN_LED_0);
+        LOG_INF("turn on: %d, %d", PIN_LED_0);
         k_msleep(SLEEP_TIME_MS);
         
         ret = gpio_pin_set_raw(leds, PIN_LED_1, 0);
