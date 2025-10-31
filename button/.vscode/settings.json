@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "nrf_modem_lib.h": "c"
+        "nrf_modem_lib.h": "c",
+        "gpio.h": "c",
+        "log.h": "c"
     }
 }

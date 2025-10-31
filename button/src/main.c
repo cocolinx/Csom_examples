@@ -1,7 +1,5 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
-#include <nrf_modem.h> 
-#include <nrf_modem_at.h> 
 #include <modem/nrf_modem_lib.h>
 #include <zephyr/drivers/gpio.h>
 
